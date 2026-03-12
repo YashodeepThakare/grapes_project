@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState, useRef, useMemo } from 'react';
+import Image from 'next/image';
 import { Markazi_Text, Playfair_Display, Inter } from 'next/font/google';
 
 const markazi = Markazi_Text({ subsets: ['latin'], weight: ['400', '700'] });
@@ -9,10 +10,7 @@ const inter = Inter({ subsets: ['latin'], weight: ['400', '500', '600'] });
 
 export default function HeroSection() {
   const desktopText = "तनपुरे परिवार - द्राक्षे बागायतदार...";
-  const mobileTexts = useMemo(
-    () => ["तनपुरे परिवार", "द्राक्षे बागायतदार...", "तनपुरे परिवार..."],
-    []
-  );
+  const mobileTexts = useMemo(() => ["तनपुरे परिवार", "द्राक्षे बागायतदार...", "तनपुरे परिवार..."], []);
 
   const desktopTypingSpeed = 180;
   const desktopDeletingSpeed = 150;
@@ -29,8 +27,13 @@ export default function HeroSection() {
 
   const desktopCount = useRef(0);
 
-  useEffect(() => setMounted(true), []);
+  // Set mounted on next tick to avoid ESLint warning
+  useEffect(() => {
+    const id = setTimeout(() => setMounted(true), 0);
+    return () => clearTimeout(id);
+  }, []);
 
+  // Detect mobile screen
   useEffect(() => {
     if (!mounted) return;
     const handleResize = () => setIsMobile(window.innerWidth < 768);
@@ -40,9 +43,10 @@ export default function HeroSection() {
   }, [mounted]);
 
   const stableWidth = isMobile
-    ? Math.max(...mobileTexts.map((t) => t.length))
+    ? Math.max(...mobileTexts.map(t => t.length))
     : desktopText.length;
 
+  // Typing animation
   useEffect(() => {
     if (!mounted) return;
 
@@ -50,70 +54,64 @@ export default function HeroSection() {
     const typingSpeed = isMobile ? mobileTypingSpeed : desktopTypingSpeed;
     const deletingSpeed = isMobile ? mobileDeletingSpeed : desktopDeletingSpeed;
 
-    if (!isMobile) {
-      const maxCycles = 3;
-      const lastCycle = desktopCount.current === maxCycles - 1;
+    const handleTyping = () => {
+      if (!isMobile) {
+        const maxCycles = 3;
+        const lastCycle = desktopCount.current === maxCycles - 1;
 
-      if (desktopCount.current >= maxCycles) {
-        timeout = setTimeout(() => {
-          setDisplayedText(desktopText);
-          setShowCursor(false);
-        }, 0);
-      } else if (!isDeleting && displayedText.length < desktopText.length) {
-        timeout = setTimeout(() => setDisplayedText(desktopText.substring(0, displayedText.length + 1)), typingSpeed);
-      } else if (!isDeleting && displayedText.length === desktopText.length) {
-        if (lastCycle) {
+        if (!isDeleting && displayedText.length < desktopText.length) {
+          timeout = setTimeout(() => setDisplayedText(desktopText.substring(0, displayedText.length + 1)), typingSpeed);
+        } else if (!isDeleting && displayedText.length === desktopText.length) {
+          if (lastCycle) setShowCursor(false);
+          else timeout = setTimeout(() => setIsDeleting(true), pauseTime);
+        } else if (isDeleting && displayedText.length > 0) {
+          timeout = setTimeout(() => setDisplayedText(desktopText.substring(0, displayedText.length - 1)), deletingSpeed);
+        } else if (isDeleting && displayedText.length === 0) {
           desktopCount.current += 1;
-          timeout = setTimeout(() => setShowCursor(false), 0);
-        } else {
-          timeout = setTimeout(() => setIsDeleting(true), pauseTime);
+          setIsDeleting(false);
         }
-      } else if (isDeleting && displayedText.length > 0) {
-        timeout = setTimeout(() => setDisplayedText(desktopText.substring(0, displayedText.length - 1)), deletingSpeed);
-      } else if (isDeleting && displayedText.length === 0) {
-        desktopCount.current += 1;
-        setIsDeleting(false);
-      }
-    } else {
-      const currentText = mobileTexts[mobilePhase];
-      const isLastPhase = mobilePhase === mobileTexts.length - 1;
+      } else {
+        const currentText = mobileTexts[mobilePhase];
+        const isLastPhase = mobilePhase === mobileTexts.length - 1;
 
-      if (!isDeleting && displayedText.length < currentText.length) {
-        timeout = setTimeout(() => setDisplayedText(currentText.substring(0, displayedText.length + 1)), typingSpeed);
-      } else if (!isDeleting && displayedText.length === currentText.length) {
-        if (isLastPhase) {
-          timeout = setTimeout(() => setShowCursor(false), 0);
-        } else {
-          timeout = setTimeout(() => setIsDeleting(true), pauseTime);
+        if (!isDeleting && displayedText.length < currentText.length) {
+          timeout = setTimeout(() => setDisplayedText(currentText.substring(0, displayedText.length + 1)), typingSpeed);
+        } else if (!isDeleting && displayedText.length === currentText.length) {
+          if (isLastPhase) setShowCursor(false);
+          else timeout = setTimeout(() => setIsDeleting(true), pauseTime);
+        } else if (isDeleting && displayedText.length > 0) {
+          timeout = setTimeout(() => setDisplayedText(currentText.substring(0, displayedText.length - 1)), deletingSpeed);
+        } else if (isDeleting && displayedText.length === 0) {
+          setMobilePhase(prev => prev + 1);
+          setIsDeleting(false);
         }
-      } else if (isDeleting && displayedText.length > 0) {
-        timeout = setTimeout(() => setDisplayedText(currentText.substring(0, displayedText.length - 1)), deletingSpeed);
-      } else if (isDeleting && displayedText.length === 0) {
-        setMobilePhase((prev) => prev + 1);
-        setIsDeleting(false);
       }
-    }
+    };
 
+    handleTyping();
     return () => clearTimeout(timeout);
   }, [displayedText, isDeleting, isMobile, mobilePhase, mounted, mobileTexts]);
 
-  if (!mounted) return null;
-
   return (
-    <section className="relative w-full min-h-screen h-[100dvh] overflow-hidden">
-      {/* Background */}
-      <div
-        className="absolute inset-0 bg-cover bg-center"
-        style={{
-          backgroundImage: "url('/images/grapes.jpg')",
-          width: '100%',
-          height: '100%',
-          transform: 'scale(1.05)',
-        }}
-      />
-      <div className="absolute inset-0 bg-black/50" />
+    <section className="relative w-full min-h-screen h-[100dvh] overflow-hidden bg-black">
+      {/* Background image with preloading */}
+      <div className="absolute inset-0">
+        <Image
+          src="/images/grapes.jpg"
+          alt="grapes"
+          fill
+          className="object-cover animate-slowZoom will-change-transform"
+          priority
+        />
+        <div className="absolute inset-0 bg-black/50" />
+      </div>
 
-      <div className="relative z-10 flex items-center justify-start h-full px-4 sm:px-6 md:px-16">
+      {/* Hero content */}
+      <div
+        className={`relative z-10 flex items-center justify-start h-full px-4 sm:px-6 md:px-16 transition-opacity duration-500 ${
+          mounted ? 'opacity-100' : 'opacity-0'
+        }`}
+      >
         <div className="w-full max-w-2xl text-left">
           <h1
             className={`${markazi.className} text-3xl sm:text-4xl md:text-6xl font-bold text-white leading-tight tracking-wide`}
@@ -160,7 +158,7 @@ export default function HeroSection() {
               href="https://www.instagram.com/royal_shetkari_7589_96k/"
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-3 rounded-full text-white text-lg sm:text-base font-semibold shadow-lg bg-linear-to-r from-pink-500 via-red-500 to-yellow-500 hover:scale-105 active:scale-95 transition-all duration-300 animate-[instaGlow_3s_ease-in-out_infinite]"
+              className="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-3 rounded-full text-white text-lg sm:text-base font-semibold shadow-lg bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 hover:scale-105 active:scale-95 transition-all duration-300 animate-[instaGlow_3s_ease-in-out_infinite]"
             >
               Instagram
             </a>

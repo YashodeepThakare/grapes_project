@@ -39,3 +39,6 @@ body {
 .hero-font {
   font-family: "Markazi Text", serif;
 }
+html, body {
+  overflow-x: hidden;
+}

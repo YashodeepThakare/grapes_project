@@ -2,7 +2,6 @@
 
 import { useEffect, useState, useRef, useMemo } from 'react';
 import { Markazi_Text, Playfair_Display, Inter } from 'next/font/google';
-import { FaInstagram } from 'react-icons/fa';
 
 const markazi = Markazi_Text({ subsets: ['latin'], weight: ['400', '700'] });
 const playfair = Playfair_Display({ subsets: ['latin'], weight: ['400', '600', '700'] });
@@ -21,7 +20,7 @@ export default function HeroSection() {
   const mobileDeletingSpeed = 220;
   const pauseTime = 700;
 
-  const [mounted, setMounted] = useState(false); // ✅ client-only rendering
+  const [mounted, setMounted] = useState(false);
   const [displayedText, setDisplayedText] = useState('');
   const [isDeleting, setIsDeleting] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
@@ -30,10 +29,8 @@ export default function HeroSection() {
 
   const desktopCount = useRef(0);
 
-// eslint-disable-next-line react-hooks/set-state-in-effect
-useEffect(() => setMounted(true), []);
+  useEffect(() => setMounted(true), []);
 
-  // Detect screen size (client-only)
   useEffect(() => {
     if (!mounted) return;
     const handleResize = () => setIsMobile(window.innerWidth < 768);
@@ -46,7 +43,6 @@ useEffect(() => setMounted(true), []);
     ? Math.max(...mobileTexts.map((t) => t.length))
     : desktopText.length;
 
-  // Typing effect
   useEffect(() => {
     if (!mounted) return;
 
@@ -76,7 +72,6 @@ useEffect(() => setMounted(true), []);
         timeout = setTimeout(() => setDisplayedText(desktopText.substring(0, displayedText.length - 1)), deletingSpeed);
       } else if (isDeleting && displayedText.length === 0) {
         desktopCount.current += 1;
-        // eslint-disable-next-line react-hooks/set-state-in-effect
         setIsDeleting(false);
       }
     } else {
@@ -102,17 +97,23 @@ useEffect(() => setMounted(true), []);
     return () => clearTimeout(timeout);
   }, [displayedText, isDeleting, isMobile, mobilePhase, mounted, mobileTexts]);
 
-  if (!mounted) return null; // ✅ prevent hydration mismatch
+  if (!mounted) return null;
 
   return (
-    <section className="relative h-screen w-full overflow-hidden">
+    <section className="relative w-full min-h-screen h-[100dvh] overflow-hidden">
+      {/* Background */}
       <div
-        className="absolute inset-0 bg-cover bg-center scale-105 animate-[slowZoom_25s_linear_infinite]"
-        style={{ backgroundImage: "url('/images/grapes.jpg')" }}
+        className="absolute inset-0 bg-cover bg-center"
+        style={{
+          backgroundImage: "url('/images/grapes.jpg')",
+          width: '100%',
+          height: '100%',
+          transform: 'scale(1.05)',
+        }}
       />
       <div className="absolute inset-0 bg-black/50" />
 
-      <div className="relative z-10 flex items-center h-full px-4 sm:px-6 md:px-16">
+      <div className="relative z-10 flex items-center justify-start h-full px-4 sm:px-6 md:px-16">
         <div className="w-full max-w-2xl text-left">
           <h1
             className={`${markazi.className} text-3xl sm:text-4xl md:text-6xl font-bold text-white leading-tight tracking-wide`}
@@ -121,6 +122,7 @@ useEffect(() => setMounted(true), []);
               minWidth: `${stableWidth}ch`,
               maxWidth: '100%',
               whiteSpace: isMobile ? 'normal' : 'nowrap',
+              wordWrap: 'break-word',
               textShadow: '2px 2px 8px rgba(0,0,0,0.6)',
             }}
           >
@@ -148,24 +150,12 @@ useEffect(() => setMounted(true), []);
             >
               🍇 आमची बाग पहा
             </button>
-           <a
-  href="tel:+919527758051"
-  className={`
-    w-full sm:w-auto 
-    flex items-center justify-center 
-    border border-white 
-    text-white 
-    px-6 py-3 
-    rounded-full 
-    transition transform 
-    hover:scale-105 active:scale-95 
-    sm:hover:bg-white sm:hover:text-black 
-    active:bg-gray-200 
-    text-lg sm:text-base
-  `}
->
-  📞 संपर्क करा
-</a>
+            <a
+              href="tel:+919527758051"
+              className="w-full sm:w-auto flex items-center justify-center border border-white text-white px-6 py-3 rounded-full transition transform hover:scale-105 active:scale-95 sm:hover:bg-white sm:hover:text-black active:bg-gray-200 text-lg sm:text-base"
+            >
+              📞 संपर्क करा
+            </a>
             <a
               href="https://www.instagram.com/royal_shetkari_7589_96k/"
               target="_blank"

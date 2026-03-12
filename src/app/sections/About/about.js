@@ -4,7 +4,6 @@ import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 
 export default function AboutSection() {
-
   const images = [
     "/images/grapes.jpg",
     "/images/grapes2.jpg",
@@ -16,11 +15,9 @@ export default function AboutSection() {
 
   const [current, setCurrent] = useState(0);
   const [visible, setVisible] = useState(false);
-
   const sectionRef = useRef(null);
 
   /* Auto Image Slider */
-
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrent((prev) => (prev + 1) % images.length);
@@ -30,13 +27,10 @@ export default function AboutSection() {
   }, [images.length]);
 
   /* Scroll Animation */
-
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true);
-        }
+        if (entry.isIntersecting) setVisible(true);
       },
       { threshold: 0.3 }
     );
@@ -49,29 +43,25 @@ export default function AboutSection() {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full pt-28 pb-36 bg-linear-to-br from-green-50 via-white to-green-100 px-6 md:px-16 overflow-hidden"
+      className="relative w-full pt-28 pb-40 bg-linear-to-br from-green-50 via-white to-green-100 px-6 md:px-16 overflow-visible"
     >
-
       {/* Background Glow */}
-      <div className="absolute -top-32 -left-32 w-105 h-105 bg-green-300 rounded-full blur-[140px] opacity-20" />
+      <div className="absolute -top-32 -left-32 w-105 h-105 bg-green-300 rounded-full blur-[140px] opacity-20 pointer-events-none" />
 
-      <div className="relative max-w-7xl mx-auto grid md:grid-cols-2 gap-20 items-center">
-
+      <div className="relative max-w-7xl mx-auto grid md:grid-cols-2 gap-20 items-center z-10">
         {/* LEFT IMAGE SLIDER */}
-
         <div
-          className={`relative w-full h-105 sm:h-125 md:h-140 rounded-3xl overflow-hidden shadow-[0_25px_60px_rgba(0,0,0,0.18)] transition-all duration-900 ${
+          className={`relative w-full h-105 sm:h-125 md:h-140 rounded-3xl shadow-[0_25px_60px_rgba(0,0,0,0.18)] transition-all duration-900 ${
             visible ? "translate-x-0 opacity-100" : "-translate-x-16 opacity-0"
-          }`}
+          } overflow-hidden`}
         >
-
           {images.map((img, index) => (
             <div
               key={index}
-              className={`absolute inset-0 transition-all duration-1200 ${
+              className={`absolute inset-0 transition-all duration-1000 ease-in-out ${
                 index === current
-                  ? "opacity-100 scale-100"
-                  : "opacity-0 scale-110"
+                  ? "opacity-100 scale-100 z-10"
+                  : "opacity-0 scale-110 z-0"
               }`}
             >
               <Image
@@ -84,19 +74,17 @@ export default function AboutSection() {
             </div>
           ))}
 
-          <div className="absolute inset-0 bg-linear-to-t from-black/40 via-transparent to-transparent" />
-
+          {/* Gradient Overlay */}
+          <div className="absolute inset-0 bg-linear-to-t from-black/30 via-transparent to-transparent" />
         </div>
 
         {/* RIGHT CONTENT */}
-
         <div
-          className={`space-y-8 transition-all duration-900 delay-200 ${
+          className={`space-y-6 md:space-y-8 transition-all duration-900 delay-200 ${
             visible ? "translate-x-0 opacity-100" : "translate-x-16 opacity-0"
           } text-center md:text-left`}
         >
-
-          <h2 className="text-3xl md:text-5xl font-bold rozha-text tracking-tight leading-[1.3] text-green-800">
+          <h2 className="text-2xl md:text-4xl font-bold rozha-text tracking-tight leading-[1.2] text-green-800">
             🌿 तनपुरे द्राक्षे बागायतदार 🌿
           </h2>
 
@@ -122,26 +110,22 @@ export default function AboutSection() {
             <span className="w-2.5 h-2.5 bg-green-700 rounded-full animate-bounce delay-150" />
             <span className="w-2.5 h-2.5 bg-green-700 rounded-full animate-bounce delay-300" />
           </div>
-
         </div>
-
       </div>
 
-      {/* Bottom Divider */}
-
-      <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-none">
+      {/* Bottom Wave */}
+      <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-none z-0 pointer-events-none">
         <svg
           viewBox="0 0 1440 100"
-          className="w-full h-22.5"
+          className="w-full h-[120px] sm:h-[150px]"
           preserveAspectRatio="none"
         >
           <path
-            d="M0,40 C300,120 1100,0 1440,60 L1440,100 L0,100 Z"
-            className="fill-white"
+            d="M0,40 C360,80 1080,80 1440,60 L1440,100 L0,100 Z"
+            fill="white"
           />
         </svg>
       </div>
-
     </section>
   );
 }

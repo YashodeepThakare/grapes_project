@@ -28,38 +28,34 @@ Thompson Seedless द्राक्षे म्हणजे टिकाऊप
 export default function GrapesVarieties() {
   return (
     <section
-      className={`relative w-full py-10 px-4 overflow-hidden ${hind.className}`}
+      className={`relative w-full py-16 md:py-20 px-6 md:px-16 overflow-visible bg-linear-to-br from-green-50 via-white to-green-200 ${hind.className}`}
     >
-      {/* TOP DIVIDER - समायोजित केले */}
-      <div className="absolute top-0 left-0 w-full overflow-hidden leading-none -mt-[1px]">
-        <svg viewBox="0 0 1440 100" className="w-full h-[50px] sm:h-[80px]" preserveAspectRatio="none">
+      {/* Top Wave Divider - matches AboutSection bottom wave */}
+      <div className="absolute top-0 left-0 w-full overflow-hidden leading-none z-0 pointer-events-none">
+        <svg
+          viewBox="0 0 1440 100"
+          className="w-full h-[120px] sm:h-[150px]"
+          preserveAspectRatio="none"
+        >
           <path
-            d="M0,40 C300,120 1100,0 1440,60 L1440,100 L0,100 Z"
-            className="fill-green-50"
+            d="M0,60 C360,80 1080,80 1440,40 L1440,0 L0,0 Z"
+            className="fill-white"
           />
         </svg>
       </div>
 
-      {/* Background */}
-      <div
-        className="absolute inset-0 bg-cover bg-center"
-        style={{
-          backgroundImage: "url('/images/green-grape.jpeg')",
-        }}
-      />
-
-      {/* Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-white/80 via-green-50/70 to-white/80" />
+      {/* Overlay Gradient */}
+      <div className="absolute inset-0 bg-gradient-to-b from-white/80 via-green-50/70 to-white/80 pointer-events-none z-0" />
 
       <div className="relative z-10 max-w-7xl mx-auto w-full">
-        {/* Heading - स्पेसिंग कमी केली */}
+        {/* Heading */}
         <motion.div
           initial={{ opacity: 0, y: -40 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="text-center mt-4 sm:mt-8 mb-10 sm:mb-17"
+          className="text-center mt-4 sm:mt-8 mb-10 sm:mb-16"
         >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl rozha-text font-bold text-green-700">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl rozha-text font-bold text-green-800">
             🌿 आमची द्राक्षे 🌿
           </h2>
 
@@ -106,7 +102,7 @@ export default function GrapesVarieties() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="text-3xl font-bold rozha-text text-green-700 mb-3"
+              className="text-3xl font-bold rozha-text text-green-800 mb-3"
             >
               {grape.name}
             </motion.h3>
@@ -127,7 +123,7 @@ export default function GrapesVarieties() {
               className="mb-4 text-lg"
             >
               <span className="font-semibold text-xl text-green-800">📅 हंगाम:</span>
-              <span className="text-xl text-black "> {grape.season}</span>
+              <span className="text-xl text-black"> {grape.season}</span>
             </motion.p>
 
             <motion.div
@@ -136,15 +132,11 @@ export default function GrapesVarieties() {
               transition={{ delay: 0.5 }}
               className="mb-5"
             >
-              <p className="font-semibold text-green-800 mb-2 text-xl">
-                💰 किंमत
-              </p>
-
+              <p className="font-semibold text-green-800 mb-2 text-xl">💰 किंमत</p>
               <div className="flex gap-3 flex-wrap">
                 <span className="bg-green-100 text-black px-4 py-2 rounded-full text-lg font-medium shadow">
                   स्थानिक: {grape.price.local}
                 </span>
-
                 <span className="bg-green-100 px-4 py-2 text-black rounded-full text-lg font-medium shadow">
                   निर्यात: {grape.price.export}
                 </span>
@@ -157,20 +149,14 @@ export default function GrapesVarieties() {
               transition={{ delay: 0.6 }}
               className="mb-5"
             >
-              <h4 className="font-semibold text-green-800 mb-2 text-xl">
-                📝 वर्णन
-              </h4>
-
+              <h4 className="font-semibold text-green-800 mb-2 text-xl">📝 वर्णन</h4>
               <p className="text-gray-700 text-[17px] merriweather-text leading-relaxed">
                 {grape.details}
               </p>
             </motion.div>
 
             <div>
-              <h4 className="font-semibold text-green-800 mb-3 text-xl">
-                ✨ फायदे
-              </h4>
-
+              <h4 className="font-semibold text-green-800 mb-3 text-xl">✨ फायदे</h4>
               <ul className="space-y-2">
                 {grape.benefits.map((b, i) => (
                   <motion.li
@@ -190,9 +176,13 @@ export default function GrapesVarieties() {
         </div>
       </div>
 
-      {/* BOTTOM DIVIDER */}
-      <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-none">
-        <svg viewBox="0 0 1440 100" className="w-full h-[50px] sm:h-[70px]" preserveAspectRatio="none">
+      {/* Bottom Divider */}
+      <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-none z-0 pointer-events-none">
+        <svg
+          viewBox="0 0 1440 100"
+          className="w-full h-[120px] sm:h-[150px]"
+          preserveAspectRatio="none"
+        >
           <path
             d="M0,40 C300,120 1100,0 1440,60 L1440,100 L0,100 Z"
             className="fill-white"

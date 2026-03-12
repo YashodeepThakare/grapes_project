@@ -8,8 +8,8 @@ export default function AboutSection() {
   const images = [
     "/images/grapes.jpg",
     "/images/grapes2.jpg",
-    "/images/amol.jpeg",
-    "/images/sandip.jpeg",
+    "/images/Amol.jpeg",
+    "/images/Sandip.jpeg",
     "/images/grapes.jpg",
     "/images/sandip2.jpeg",
   ];

@@ -10,13 +10,13 @@ const hind = Hind({
 });
 
 const grape = {
-  name: "Thompson Seedless",
+  name: "थॉम्पसन सीडलेस",
   description: "गोड, निर्यात-योग्य द्राक्षे, लोकप्रिय आणि उत्कृष्ट दर्जाची.",
   season: "जानेवारी – मार्च",
   image: "/images/img10.jpeg",
   price: { local: "₹80/kg", export: "₹150/kg" },
   benefits: ["गोड आणि रसाळ", "निर्यातासाठी आदर्श", "टिकाऊ आणि रोट नाहीत"],
-  details: `Thompson Seedless ही द्राक्षांची अत्यंत लोकप्रिय आणि उच्च प्रतीची जाती आहे. भारतात विशेषतः नाशिक, सोलापूर आणि छत्रपती संभाजी नगर मोठ्या प्रमाणावर लागवड केली जाते.
+  details: `थॉम्पसन सीडलेस ही द्राक्षांची अत्यंत लोकप्रिय आणि उच्च प्रतीची जाती आहे. भारतात विशेषतः नाशिक, सोलापूर आणि छत्रपती संभाजी नगर मोठ्या प्रमाणावर लागवड केली जाते.
 
 मध्यम ते मोठ्या आकाराचे हिरवे ते हलके पिवळसर फळ, गोडसर चव आणि रसाळ पोत यामुळे ही द्राक्षे ताजे खाण्यास, रस, सुला किंवा निर्यातासाठी आदर्श आहेत.
 
@@ -63,7 +63,7 @@ export default function GrapesVarieties() {
           initial={{ opacity: 0, y: -40 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-12"
+          className="text-center mb-17"
         >
           <h2 className="text-3xl sm:text-4xl md:text-5xl rozha-text font-bold text-green-700">
             🌿 आमची द्राक्षे 🌿
@@ -140,7 +140,7 @@ export default function GrapesVarieties() {
               className="mb-4 text-lg"
             >
               <span className="font-semibold text-xl text-green-800">📅 हंगाम:</span>
-              <span className="text-xl"> {grape.season}</span>
+              <span className="text-xl text-black "> {grape.season}</span>
             </motion.p>
 
             <motion.div
@@ -154,11 +154,11 @@ export default function GrapesVarieties() {
               </p>
 
               <div className="flex gap-3">
-                <span className="bg-green-100 px-4 py-2 rounded-full text-lg font-medium shadow">
+                <span className="bg-green-100  text-black px-4 py-2 rounded-full text-lg font-medium shadow">
                   स्थानिक: {grape.price.local}
                 </span>
 
-                <span className="bg-green-100 px-4 py-2 rounded-full text-lg font-medium shadow">
+                <span className="bg-green-100 px-4 py-2  text-black rounded-full text-lg font-medium shadow">
                   निर्यात: {grape.price.export}
                 </span>
               </div>

@@ -144,21 +144,33 @@ useEffect(() => setMounted(true), []);
           <div className="mt-6 flex flex-col sm:flex-row gap-3 sm:gap-4">
             <button
               onClick={() => document.getElementById("gallery")?.scrollIntoView({ behavior: "smooth" })}
-              className="w-full sm:w-auto bg-green-700 hover:bg-green-800 text-white px-6 py-3 rounded-full shadow-lg transition transform hover:scale-105 active:scale-95 text-sm sm:text-base"
+              className="w-full sm:w-auto bg-green-700 hover:bg-green-800 text-white px-6 py-3 rounded-full shadow-lg transition transform hover:scale-105 active:scale-95 text-lg sm:text-base"
             >
               🍇 आमची बाग पहा
             </button>
-            <a
-              href="tel:+91952758051"
-              className="w-full sm:w-auto flex items-center justify-center border border-white text-white px-6 py-3 rounded-full hover:bg-white hover:text-black transition transform hover:scale-105 active:scale-95 text-sm sm:text-base"
-            >
-              📞 संपर्क करा
-            </a>
+           <a
+  href="tel:+919527758051"
+  className={`
+    w-full sm:w-auto 
+    flex items-center justify-center 
+    border border-white 
+    text-white 
+    px-6 py-3 
+    rounded-full 
+    transition transform 
+    hover:scale-105 active:scale-95 
+    sm:hover:bg-white sm:hover:text-black 
+    active:bg-gray-200 
+    text-lg sm:text-base
+  `}
+>
+  📞 संपर्क करा
+</a>
             <a
               href="https://www.instagram.com/royal_shetkari_7589_96k/"
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-3 rounded-full text-white text-sm sm:text-base font-semibold shadow-lg bg-linear-to-r from-pink-500 via-red-500 to-yellow-500 hover:scale-105 active:scale-95 transition-all duration-300 animate-[instaGlow_3s_ease-in-out_infinite]"
+              className="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-3 rounded-full text-white text-lg sm:text-base font-semibold shadow-lg bg-linear-to-r from-pink-500 via-red-500 to-yellow-500 hover:scale-105 active:scale-95 transition-all duration-300 animate-[instaGlow_3s_ease-in-out_infinite]"
             >
               Instagram
             </a>

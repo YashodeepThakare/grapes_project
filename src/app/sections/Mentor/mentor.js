@@ -56,7 +56,7 @@ export default function Mentor() {
                             <Image src="/images/sir.jpeg" alt="Mentor" fill className="w-full h-full object-cover" />
                         </div>
                         <div className="absolute bottom-[-10%] right-[-15%] w-[65%] aspect-3/4 rounded-2xl shadow-2xl overflow-hidden border-4 border-white hover:scale-105 transition duration-500 z-20">
-                            <Image src="/images/sir2.jpeg" alt="Mentor" fill className="w-full h-full object-cover" />
+                            <Image src="/images/image.png" alt="Mentor" fill className="w-full h-full object-cover" />
                         </div>
                     </div>
                 </motion.div>

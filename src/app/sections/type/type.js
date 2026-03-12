@@ -30,11 +30,9 @@ export default function GrapesVarieties() {
     <section
       className={`relative w-full py-10 px-4 overflow-hidden ${hind.className}`}
     >
-
-      {/* TOP DIVIDER (About Section connect) */}
-
-      <div className="absolute top-0 left-0 w-full overflow-hidden leading-none rotate-180">
-        <svg viewBox="0 0 1440 100" className="w-full h-[80px]" preserveAspectRatio="none">
+      {/* TOP DIVIDER - समायोजित केले */}
+      <div className="absolute top-0 left-0 w-full overflow-hidden leading-none -mt-[1px]">
+        <svg viewBox="0 0 1440 100" className="w-full h-[50px] sm:h-[80px]" preserveAspectRatio="none">
           <path
             d="M0,40 C300,120 1100,0 1440,60 L1440,100 L0,100 Z"
             className="fill-green-50"
@@ -43,7 +41,6 @@ export default function GrapesVarieties() {
       </div>
 
       {/* Background */}
-
       <div
         className="absolute inset-0 bg-cover bg-center"
         style={{
@@ -52,18 +49,15 @@ export default function GrapesVarieties() {
       />
 
       {/* Overlay */}
-
       <div className="absolute inset-0 bg-gradient-to-b from-white/80 via-green-50/70 to-white/80" />
 
       <div className="relative z-10 max-w-7xl mx-auto w-full">
-
-        {/* Heading */}
-
+        {/* Heading - स्पेसिंग कमी केली */}
         <motion.div
           initial={{ opacity: 0, y: -40 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-17"
+          className="text-center mt-4 sm:mt-8 mb-10 sm:mb-17"
         >
           <h2 className="text-3xl sm:text-4xl md:text-5xl rozha-text font-bold text-green-700">
             🌿 आमची द्राक्षे 🌿
@@ -77,18 +71,14 @@ export default function GrapesVarieties() {
         </motion.div>
 
         {/* Layout */}
-
         <div className="grid md:grid-cols-[40%_60%] gap-10 items-center">
-
           {/* Image */}
-
           <motion.div
             initial={{ opacity: 0, x: -80 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7 }}
             className="relative"
           >
-
             <div className="absolute -inset-4 bg-green-200/40 blur-2xl rounded-3xl"></div>
 
             <motion.div
@@ -103,18 +93,15 @@ export default function GrapesVarieties() {
                 className="object-cover transition duration-700 hover:scale-110"
               />
             </motion.div>
-
           </motion.div>
 
           {/* Content */}
-
           <motion.div
             initial={{ opacity: 0, x: 80 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7 }}
             className="backdrop-blur-md bg-white/60 rounded-3xl p-8 shadow-xl"
           >
-
             <motion.h3
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -153,12 +140,12 @@ export default function GrapesVarieties() {
                 💰 किंमत
               </p>
 
-              <div className="flex gap-3">
-                <span className="bg-green-100  text-black px-4 py-2 rounded-full text-lg font-medium shadow">
+              <div className="flex gap-3 flex-wrap">
+                <span className="bg-green-100 text-black px-4 py-2 rounded-full text-lg font-medium shadow">
                   स्थानिक: {grape.price.local}
                 </span>
 
-                <span className="bg-green-100 px-4 py-2  text-black rounded-full text-lg font-medium shadow">
+                <span className="bg-green-100 px-4 py-2 text-black rounded-full text-lg font-medium shadow">
                   निर्यात: {grape.price.export}
                 </span>
               </div>
@@ -199,23 +186,19 @@ export default function GrapesVarieties() {
                 ))}
               </ul>
             </div>
-
           </motion.div>
-
         </div>
       </div>
 
       {/* BOTTOM DIVIDER */}
-
       <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-none">
-        <svg viewBox="0 0 1440 100" className="w-full h-[70px]" preserveAspectRatio="none">
+        <svg viewBox="0 0 1440 100" className="w-full h-[50px] sm:h-[70px]" preserveAspectRatio="none">
           <path
             d="M0,40 C300,120 1100,0 1440,60 L1440,100 L0,100 Z"
             className="fill-white"
           />
         </svg>
       </div>
-
     </section>
   );
 }
